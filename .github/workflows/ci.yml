@@ -1,4 +1,5 @@
-﻿name: CI Pipeline
+﻿
+name: CI Pipeline
 
 on:
   push:
@@ -79,6 +80,7 @@ jobs:
           docker logs forgeops-api
           docker rm -f forgeops-api
           exit 1
+
   secret-scan:
     name: Scan repository for secrets
     runs-on: ubuntu-latest
@@ -94,7 +96,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          
   image-scan:
     name: Scan Docker image for vulnerabilities
     runs-on: ubuntu-latest
@@ -108,11 +109,11 @@ jobs:
         run: docker build -t forgeops-api:${{ github.sha }} .
 
       - name: Scan image with Trivy
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: forgeops-api:${{ github.sha }}
           format: table
-          exit-code: '1'
+          exit-code: "1"
           ignore-unfixed: true
           vuln-type: os,library
           severity: CRITICAL,HIGH
