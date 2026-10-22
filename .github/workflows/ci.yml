@@ -79,3 +79,17 @@ jobs:
           docker logs forgeops-api
           docker rm -f forgeops-api
           exit 1
+  secret-scan:
+    name: Scan repository for secrets
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository with history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
