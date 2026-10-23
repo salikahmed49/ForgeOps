@@ -1,0 +1,8 @@
+apiVersion: v2
+name: forgeops-api
+description: Production-grade Helm chart for ForgeOps API
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+maintainers:
+  - name: ForgeOps Team

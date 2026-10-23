@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: forgeops-api-monitor
+  namespace: forgeops
+  labels:
+    release: monitoring
+    app.kubernetes.io/name: forgeops-api
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: forgeops-api
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s

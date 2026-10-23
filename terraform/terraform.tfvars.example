@@ -1,0 +1,5 @@
+environment    = "dev"
+location       = "eastus"
+project_name   = "forgeops"
+aks_node_count = 2
+aks_vm_size    = "Standard_B2s"

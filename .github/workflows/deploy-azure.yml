@@ -1,0 +1,87 @@
+name: Deploy to Azure AKS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  id-token: write # Required for requesting the OIDC JWT token
+  contents: read
+
+jobs:
+  build-and-publish:
+    name: Build & Push Container to ACR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Azure Login via OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Login to ACR
+        run: |
+          az acr login --name ${{ vars.ACR_NAME }}
+
+      - name: Build and Push Docker Image
+        env:
+          ACR_REGISTRY: ${{ vars.ACR_NAME }}.azurecr.io
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build \
+            -t $ACR_REGISTRY/forgeops-api:$IMAGE_TAG \
+            -t $ACR_REGISTRY/forgeops-api:latest .
+          docker push $ACR_REGISTRY/forgeops-api:$IMAGE_TAG
+          docker push $ACR_REGISTRY/forgeops-api:latest
+
+  deploy-to-aks:
+    name: Deploy Helm Release to AKS
+    runs-on: ubuntu-latest
+    needs: build-and-publish
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Azure Login via OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Set AKS Context
+        uses: azure/aks-set-context@v4
+        with:
+          resource-group: ${{ vars.AKS_RESOURCE_GROUP }}
+          cluster-name: ${{ vars.AKS_CLUSTER_NAME }}
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: "v3.14.0"
+
+      - name: Deploy via Helm
+        env:
+          ACR_REGISTRY: ${{ vars.ACR_NAME }}.azurecr.io
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          helm upgrade --install forgeops-api ./charts/forgeops-api \
+            --namespace forgeops \
+            --create-namespace \
+            --set image.repository=$ACR_REGISTRY/forgeops-api \
+            --set image.tag=$IMAGE_TAG \
+            --atomic \
+            --timeout 5m0s
+
+      - name: Verify Deployment Rollout
+        run: |
+          kubectl rollout status deployment/forgeops-api -n forgeops --timeout=60s
+          kubectl get pods -n forgeops -l app.kubernetes.io/name=forgeops-api
