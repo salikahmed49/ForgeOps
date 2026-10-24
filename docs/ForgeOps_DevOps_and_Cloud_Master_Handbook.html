@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Complete Cloud, DevOps & Site Reliability Engineering Master Handbook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 18mm 16mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 9pt;
+        color: #64748b;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      color: #0f172a;
+      font: 10.5pt/1.6 "IBM Plex Sans", -apple-system, system-ui, sans-serif;
+      text-rendering: optimizeLegibility;
+    }
+
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* COVER / TITLE HEADER */
+    .cover {
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: #0f172a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 24pt;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      letter-spacing: -0.02em;
+    }
+    .meta {
+      font-size: 9.5pt;
+      color: #475569;
+      font-family: "IBM Plex Mono", monospace;
+      line-height: 1.6;
+    }
+
+    /* HEADINGS */
+    h2 {
+      font-size: 15pt;
+      font-weight: 700;
+      color: #0f172a;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 6px;
+      margin: 36px 0 14px;
+      page-break-after: avoid;
+    }
+    h3 {
+      font-size: 12pt;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 22px 0 8px;
+      page-break-after: avoid;
+    }
+    h4 {
+      font-size: 10.5pt;
+      font-weight: 600;
+      color: #334155;
+      margin: 16px 0 6px;
+      page-break-after: avoid;
+    }
+
+    p { margin: 0 0 10px; }
+    ul, ol { margin: 0 0 12px; padding-left: 22px; }
+    li { margin-bottom: 4px; }
+
+    /* MONOSPACE & CODE BLOCKS */
+    code {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9pt;
+      background: #f1f5f9;
+      padding: 1.5px 4.5px;
+      border-radius: 3px;
+      color: #0f172a;
+      border: 1px solid #e2e8f0;
+    }
+    pre {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 8.5pt;
+      line-height: 1.55;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 14px 16px;
+      border-radius: 5px;
+      overflow-x: auto;
+      margin: 10px 0 16px;
+      page-break-inside: avoid;
+    }
+    pre code {
+      background: transparent;
+      padding: 0;
+      color: inherit;
+      border: none;
+    }
+
+    /* TABLES */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 18px;
+      font-size: 9pt;
+      page-break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f8fafc;
+      font-weight: 600;
+      color: #0f172a;
+    }
+    tr:nth-child(even) td { background: #fdfdfe; }
+
+    /* CALLOUT BOXES */
+    .callout {
+      background: #f8fafc;
+      border-left: 3.5px solid #2563eb;
+      padding: 10px 14px;
+      margin: 12px 0 16px;
+      font-size: 9.5pt;
+      border-radius: 0 4px 4px 0;
+    }
+    .callout b { color: #1e3a8a; }
+
+    .page-break { page-break-before: always; }
+
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .container { max-width: 100%; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- COVER HEADER -->
+  <div class="cover">
+    <div class="badge">ForgeOps Engineering Handbook</div>
+    <h1>The Complete Cloud, DevOps &amp; Site Reliability Engineering Master Handbook</h1>
+    <div class="meta">
+      Author: Staff Platform &amp; DevOps Architect<br>
+      Scope: Microsoft Azure, Docker, Kubernetes, Helm 3, Terraform, Prometheus &amp; Grafana<br>
+      Document Version: 1.0.0 (Production Architecture Edition)
+    </div>
+  </div>
+
+  <!-- CHAPTER 1 -->
+  <h2>Chapter 1: Microsoft Azure &amp; Enterprise Cloud Architecture</h2>
+  
+  <h3>1.1 Cloud Service Models</h3>
+  <ul>
+    <li><b>IaaS (Infrastructure as a Service)</b>: You rent raw compute, virtual machines (Azure VMs), storage, and virtual networks. You manage the OS, middleware, patching, data, and applications. Azure manages virtualization, servers, storage, and networking.</li>
+    <li><b>PaaS (Platform as a Service)</b>: The cloud provider manages the operating system, patching, runtime, and hardware. You only manage application code and data. Examples: Azure App Service, Azure Container Apps, Azure SQL.</li>
+    <li><b>SaaS (Software as a Service)</b>: Fully managed software accessible over the web. Examples: Microsoft 365, Dynamics 365.</li>
+  </ul>
+
+  <h3>1.2 Azure Resource Hierarchy &amp; Governance</h3>
+  <p>Azure organizes every asset in a strict 4-level management hierarchy:</p>
+  <pre><code>[1] Microsoft Entra ID Tenant (Identity & Security Boundary)
+      └── [2] Management Groups (Governance & Azure Policy Boundary)
+            └── [3] Azure Subscription (Billing & Quota Boundary)
+                  └── [4] Resource Groups (Lifecycle & Containment Boundary)
+                        ├── Virtual Network (VNet)
+                        ├── Azure Kubernetes Service (AKS)
+                        ├── Azure Container Registry (ACR)
+                        └── Azure Key Vault</code></pre>
+
+  <p><b>Core Principle</b>: If you delete a <b>Resource Group</b>, Azure terminates and deletes every resource inside it. This is why Terraform groups environments into dedicated Resource Groups.</p>
+
+  <h3>1.3 Azure Global Infrastructure</h3>
+  <ul>
+    <li><b>Regions</b>: Geographic areas containing multiple physical data centers connected through a dedicated low-latency network (e.g., <code>East US</code>, <code>West Europe</code>).</li>
+    <li><b>Availability Zones (AZs)</b>: Unique, physically separate data centers within an Azure Region. Each zone has independent power, cooling, and networking. Running workloads across 3 AZs provides a <b>99.99% uptime SLA</b> against data center fires or electrical failures.</li>
+    <li><b>Paired Regions</b>: Each Azure region is paired with another region in the same geography (e.g., <code>East US</code> paired with <code>West US</code>) for sequential platform updates and disaster recovery.</li>
+  </ul>
+
+  <h3>1.4 Azure Networking Deep Dive</h3>
+  <ul>
+    <li><b>Virtual Network (VNet)</b>: A private, isolated network in Azure with customizable IP address blocks (e.g., <code>10.0.0.0/16</code> = 65,536 private IPs).</li>
+    <li><b>Subnets</b>: Subdivisions of a VNet (e.g., <code>10.0.1.0/24</code> = 256 IPs) isolating tiers (frontend subnets, AKS node subnets, database subnets).</li>
+    <li><b>Network Security Groups (NSGs)</b>: Stateful firewall filters controlling inbound and outbound traffic using 5-tuple evaluation (Source IP, Source Port, Destination IP, Destination Port, Protocol).</li>
+    <li><b>VNet Peering</b>: Directly connects two Azure VNets using Microsoft's private optical backbone with zero internet exposure and ultra-low latency.</li>
+    <li><b>Azure Bastion</b>: A fully managed PaaS service providing secure RDP/SSH access to VMs directly through the Azure Portal via TLS (port 443), eliminating public IP addresses on servers.</li>
+  </ul>
+
+  <h3>1.5 Azure Container &amp; Identity Services</h3>
+  <ul>
+    <li><b>Azure Container Registry (ACR)</b>: Private OCI-compliant registry. Hardening best practice: set <code>admin_enabled = false</code> and authenticate nodes via Managed Identities rather than permanent root passwords.</li>
+    <li><b>Azure Kubernetes Service (AKS)</b>: Managed Kubernetes. Microsoft manages the control plane (<code>kube-apiserver</code>, <code>etcd</code>) for free; you only pay for worker node VMs.</li>
+    <li><b>Managed Identities</b>: Azure injects tokens via a local Instance Metadata Service (IMDS) at <code>http://169.254.169.254</code>. The AKS Kubelet identity is bound to ACR using the <b><code>AcrPull</code></b> RBAC role. No credentials ever exist in config files or secrets.</li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <!-- CHAPTER 2 -->
+  <h2>Chapter 2: Docker &amp; Containerization Deep Dive</h2>
+  
+  <h3>2.1 How Containers Work Under the Hood</h3>
+  <p>Containers are <b>NOT</b> virtual machines. A virtual machine virtualizes hardware and runs a full guest operating system. A container is an <b>isolated Linux process</b> running directly on the host kernel.</p>
+
+  <table>
+    <thead>
+      <tr><th>Linux Mechanism</th><th>Category</th><th>Responsibility in Containers</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>PID Namespace</code></td><td>Namespaces (Visibility)</td><td>Process isolation (inside the container, your app is PID 1).</td></tr>
+      <tr><td><code>NET Namespace</code></td><td>Namespaces (Visibility)</td><td>Network virtualization (each container gets its own virtual <code>eth0</code> and IP).</td></tr>
+      <tr><td><code>MNT Namespace</code></td><td>Namespaces (Visibility)</td><td>Filesystem isolation (restricts process to container rootfs).</td></tr>
+      <tr><td><code>IPC Namespace</code></td><td>Namespaces (Visibility)</td><td>Inter-Process Communication isolation.</td></tr>
+      <tr><td><code>cgroups (Control Groups)</code></td><td>Resource Bounds</td><td>Restricts CPU quotas, memory limits, and disk I/O. Triggers <b>OOM Killer</b> if memory limit is exceeded.</td></tr>
+      <tr><td><code>OverlayFS (Overlay2)</code></td><td>Storage Driver</td><td>Stacks multiple read-only image layers together with a thin read-write container layer on top using copy-on-write (CoW).</td></tr>
+    </tbody>
+  </table>
+
+  <h3>2.2 Production Dockerfile Standards</h3>
+  <pre><code>FROM python:3.12-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONPATH=/app
+
+WORKDIR /app
+
+# Layer caching: copy dependencies first
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY app ./app
+COPY tests ./tests
+
+# Security: non-root user execution
+RUN useradd --create-home --uid 1000 appuser && chown -R appuser:appuser /app
+USER appuser
+
+EXPOSE 8000
+
+# JSON exec form ensures proper POSIX SIGTERM handling for graceful shutdown
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]</code></pre>
+
+  <div class="callout">
+    <b>Critical Difference: Exec Form vs Shell Form</b><br>
+    Always use <code>CMD ["node", "app.js"]</code> (exec form) rather than <code>CMD node app.js</code> (shell form). The shell form spawns <code>/bin/sh -c</code>, which swallows <code>SIGTERM</code> signals sent by Kubernetes, causing rolling updates to stall and forcefully kill pods.
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- CHAPTER 3 -->
+  <h2>Chapter 3: Kubernetes (K8s) &amp; Helm Orchestration Mastery</h2>
+
+  <h3>3.1 The Kubernetes Architecture</h3>
+  <ul>
+    <li><b>Control Plane</b>:
+      <ul>
+        <li><code>kube-apiserver</code>: The front door of the cluster. All internal and external requests (<code>kubectl</code>) authenticate and validate through this REST API.</li>
+        <li><code>etcd</code>: A highly available, distributed, key-value database implementing the Raft consensus algorithm. Stores the entire desired and actual cluster state.</li>
+        <li><code>kube-scheduler</code>: Watches for newly created unscheduled Pods. Evaluates node resource availability, affinity, and taints/tolerations to assign the pod to the best worker node.</li>
+        <li><code>kube-controller-manager</code>: Runs continuous reconciliation loops. Compares current state with desired state (e.g., maintaining replica counts).</li>
+      </ul>
+    </li>
+    <li><b>Worker Nodes</b>:
+      <ul>
+        <li><code>kubelet</code>: The node agent. Watches the API server for PodSpecs assigned to its node and instructs the container runtime (<code>containerd</code>) to start or stop containers.</li>
+        <li><code>kube-proxy</code>: Manages network routing rules on worker nodes (via Linux <code>iptables</code> or IPVS), load-balancing traffic across pods backing a <code>Service</code>.</li>
+        <li><code>containerd</code>: Pulls images, manages storage layers, and starts containers using Linux namespaces and cgroups.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>3.2 Core Workload &amp; Networking Objects</h3>
+  <ul>
+    <li><b>Pod</b>: The atomic unit of deployment. Contains one or more tightly coupled containers sharing localhost (<code>127.0.0.1</code>), storage volumes, and network namespace.</li>
+    <li><b>Deployment</b>: Higher-level abstraction over ReplicaSets. Manages declarative zero-downtime rolling updates and rollbacks.
+      <ul>
+        <li><code>maxSurge: 1</code>: Allows 1 extra pod above desired count during updates.</li>
+        <li><code>maxUnavailable: 0</code>: Guarantees 0 pods are terminated until new pods pass their readiness checks.</li>
+      </ul>
+    </li>
+    <li><b>Service Types</b>:
+      <ul>
+        <li><code>ClusterIP</code> (Default): Exposes service internally within the cluster network only.</li>
+        <li><code>NodePort</code>: Exposes service on a static high port (<code>30000-32767</code>) on every physical node IP.</li>
+        <li><code>LoadBalancer</code>: Integrates with cloud providers (Azure Load Balancer) to provision an external public IP routing into the cluster.</li>
+        <li><code>Headless Service</code> (<code>clusterIP: None</code>): Returns direct Pod IPs via DNS rather than a virtual IP (used for stateful clusters like Kafka, Redis).</li>
+      </ul>
+    </li>
+    <li><b>Probes</b>:
+      <ul>
+        <li><b>Liveness Probe</b>: Detects deadlocks or unrecoverable application crashes. If it fails, Kubernetes restarts the container.</li>
+        <li><b>Readiness Probe</b>: Determines if the application is ready to accept user traffic. If it fails, Kubernetes removes the pod from the Service endpoint pool.</li>
+        <li><b>Startup Probe</b>: Disables liveness checks during slow legacy application initialization to prevent premature restart loops.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>3.3 Helm 3 Mastery</h3>
+  <p>Helm acts as both package manager and Go-templating engine for Kubernetes manifests:</p>
+  <pre><code>helm lint charts/forgeops-api               # Validate chart syntax
+helm template charts/forgeops-api           # Render templates to stdout
+helm upgrade --install forgeops-api ./charts/forgeops-api \
+  --namespace forgeops --create-namespace \
+  --set image.tag=v1.0.0 --atomic --timeout 5m</code></pre>
+
+  <div class="page-break"></div>
+
+  <!-- CHAPTER 4 -->
+  <h2>Chapter 4: Terraform &amp; Infrastructure as Code (IaC) Mastery</h2>
+
+  <h3>4.1 Principles of Infrastructure as Code</h3>
+  <ul>
+    <li><b>Declarative</b>: Define <i>what</i> the infrastructure should be, not <i>how</i> to build it.</li>
+    <li><b>Idempotency</b>: Running <code>terraform apply</code> 100 times produces the exact same end state as running it once.</li>
+    <li><b>Immutable Infrastructure</b>: Instead of modifying servers in place, replace them with newly versioned resources.</li>
+  </ul>
+
+  <h3>4.2 State Management &amp; Remote State Locking</h3>
+  <p><code>terraform.tfstate</code> is a JSON ledger mapping declared resources to actual cloud IDs. In enterprise architectures, state is stored in <b>Azure Blob Storage</b> with lease locking:</p>
+  <pre><code>terraform {
+  backend "azurerm" {
+    resource_group_name  = "rg-forgeops-tfstate"
+    storage_account_name = "stforgeopstfstate"
+    container_name       = "tfstate"
+    key                  = "forgeops.dev.terraform.tfstate"
+  }
+}</code></pre>
+
+  <h3>4.3 The 4 Core Terraform Commands</h3>
+  <table>
+    <thead><tr><th>Command</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>terraform init</code></td><td>Initializes working directory, downloads AzureRM provider plugins, and connects to remote backend.</td></tr>
+      <tr><td><code>terraform plan</code></td><td>Calculates the Directed Acyclic Graph (DAG) diff between real cloud state and desired code (+ add, ~ change, - destroy).</td></tr>
+      <tr><td><code>terraform apply</code></td><td>Executes Azure REST API calls to match declared configuration.</td></tr>
+      <tr><td><code>terraform destroy</code></td><td>Deletes all resources managed by the state file in reverse dependency order.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- CHAPTER 5 -->
+  <h2>Chapter 5: Prometheus &amp; Grafana Observability (SRE Mastery)</h2>
+
+  <h3>5.1 Google SRE's 4 Golden Signals</h3>
+  <ol>
+    <li><b>Latency</b>: Time taken to service a request (tracked via p50, p90, and p99 percentiles).</li>
+    <li><b>Traffic</b>: Demand on the system (HTTP Requests Per Second).</li>
+    <li><b>Errors</b>: Rate of failed requests (HTTP 5xx responses).</li>
+    <li><b>Saturation</b>: How full your system's computing capacity is (Memory %, CPU %, Disk I/O).</li>
+  </ol>
+
+  <h3>5.2 The 4 Prometheus Metric Types</h3>
+  <table>
+    <thead><tr><th>Metric Type</th><th>Behavior</th><th>Production Example</th></tr></thead>
+    <tbody>
+      <tr><td><b>Counter</b></td><td>Monotonically increasing integer (only increments or resets to 0).</td><td><code>api_requests_total{method="GET", status="200"}</code></td></tr>
+      <tr><td><b>Gauge</b></td><td>Numerical value that can arbitrarily go up or down.</td><td><code>active_users_current</code>, <code>memory_bytes_used</code></td></tr>
+      <tr><td><b>Histogram</b></td><td>Samples observations into configurable buckets and counts totals.</td><td><code>api_request_duration_seconds_bucket{le="0.1"}</code></td></tr>
+      <tr><td><b>Summary</b></td><td>Calculates configurable quantiles client-side over sliding time windows.</td><td>Request payload sizes.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>5.3 Essential PromQL Formulas</h3>
+  <pre><code># 1. Total Requests Per Second (RPS)
+sum(rate(api_requests_total[1m]))
+
+# 2. HTTP 5xx Error Rate Percentage
+(sum(rate(api_requests_total{status=~"5.."}[1m])) / sum(rate(api_requests_total[1m]))) * 100
+
+# 3. 95th Percentile Response Time (Latency)
+histogram_quantile(0.95, sum by (le) (rate(api_request_duration_seconds_bucket[1m])))
+
+# 4. Target Availability Alert Rule
+up{job="forgeops-api"} == 0</code></pre>
+
+  <div class="page-break"></div>
+
+  <!-- CHAPTER 6 -->
+  <h2>Chapter 6: Commonly Used CLI Cheat Sheet</h2>
+
+  <h3>Docker CLI</h3>
+  <pre><code>docker run -d --name api -p 8000:8000 --restart unless-stopped forgeops-api:latest
+docker ps -a                                # List all running and stopped containers
+docker stop &lt;container_id&gt;                  # Send SIGTERM, then SIGKILL after 10s
+docker kill &lt;container_id&gt;                  # Send immediate SIGKILL (crash simulation)
+docker rm -f &lt;container_id&gt;                 # Force remove container
+docker logs -f --tail 100 api               # Follow live log stream
+docker exec -it api /bin/sh                 # Interactive shell inside container
+docker inspect api                          # Detailed JSON metadata (IPs, mounts)
+docker build -t forgeops-api:1.0.0 .        # Build container image
+docker system prune -af --volumes           # Clean dangling containers & images</code></pre>
+
+  <h3>Kubernetes (kubectl) CLI</h3>
+  <pre><code>kubectl cluster-info                        # Display API server endpoint
+kubectl get nodes -o wide                   # List physical/virtual worker nodes
+kubectl get pods -n forgeops                # List pods in namespace
+kubectl describe pod &lt;pod_name&gt; -n forgeops # View detailed events and failure reasons
+kubectl logs -f &lt;pod_name&gt; -n forgeops      # Stream live pod logs
+kubectl delete pod &lt;pod_name&gt; -n forgeops   # Terminate pod (tests self-healing)
+kubectl apply -k k8s/                       # Apply kustomize resources
+kubectl rollout status deployment/api -n ns # Monitor zero-downtime rollout
+kubectl rollout undo deployment/api -n ns   # Rollback to previous revision
+kubectl scale deployment/api --replicas=5   # Manually scale pod replicas
+kubectl port-forward svc/forgeops-api 8080:80 -n forgeops</code></pre>
+
+  <h3>Helm 3 CLI</h3>
+  <pre><code>helm lint charts/forgeops-api               # Validate chart syntax
+helm template charts/forgeops-api           # Render templates to stdout
+helm upgrade --install forgeops-api ./charts/forgeops-api -n forgeops --atomic --timeout 5m
+helm list -n forgeops                       # List active releases
+helm history forgeops-api -n forgeops       # View release revision history
+helm rollback forgeops-api 2 -n forgeops    # Instant rollback to revision 2</code></pre>
+
+  <h3>Terraform CLI</h3>
+  <pre><code>terraform -chdir=terraform init             # Initialize backend & download providers
+terraform -chdir=terraform fmt              # Auto-format HCL code to standard
+terraform -chdir=terraform validate         # Check code syntax and consistency
+terraform -chdir=terraform plan             # Calculate diff and preview actions
+terraform -chdir=terraform apply            # Provision live cloud infrastructure
+terraform -chdir=terraform destroy          # Tear down all managed cloud resources
+terraform -chdir=terraform state list       # List all resources tracked in state</code></pre>
+
+  <h3>Azure CLI (az)</h3>
+  <pre><code>az login                                    # Interactive browser login to Azure
+az account show                             # View active subscription and tenant details
+az account set --subscription &lt;sub_id&gt;      # Switch active billing subscription
+az group list -o table                      # List all Resource Groups
+az aks list -o table                        # List all AKS clusters
+az aks get-credentials -g rg-name -n aks-name --overwrite-existing # Sync kubeconfig
+az acr login --name acrname                 # Authenticate local Docker with ACR</code></pre>
+
+</div>
+</body>
+</html>
